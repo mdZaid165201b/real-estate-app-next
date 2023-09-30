@@ -15,7 +15,7 @@ function Hero() {
                 <div className=' text-white  h-[80px] absolute top-0 translate-y-56 left-[34%]'>
                     <div className='flex justify-center items-center flex-col border border-teal-700'>
                         <h1 className='text-[57px]'>Find Your Dream Home</h1>
-                        <h1 className='text-center text-[25px]'>From as low as $10 per day with limited time offer discounts.</h1>
+                        <h1 className='text-center text-[25px]'>From low as $10 per day with limited time offer discounts.</h1>
                     </div>
 
                 </div>
