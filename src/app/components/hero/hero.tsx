@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import Image from 'next/image';
+import { Select, Input, Space, ConfigProvider } from 'antd';
 import HeroBG from '../../../../public/images/HeaderBG.jpg';
 
 enum PropertyMode {
@@ -14,6 +15,27 @@ interface IPropertyMode {
     value: string,
     id: string
 }
+
+const theme = {
+    token: {
+        // Seed Token
+        colorBorder: '#0D9488',
+        borderRadius: 10,
+        optionActiveBg: '#DB2777',
+        optionPadding: 50,
+        optionFontSize: '50px'
+
+        // Alias Token
+        // colorBgContainer: '#f6ffed',
+    },
+}
+const inputTheme = {
+    token: {
+        paddingInline: 20,
+        colorBorder: '#0D9488',
+    },
+}
+
 function Hero() {
     const PropertyModeButtons = [
         {
@@ -38,6 +60,9 @@ function Hero() {
     const handleChangePropertyMode = (modetype: IPropertyMode): void => {
         setPropertyMode(modetype);
     }
+    const handleChange = (value: string) => {
+        console.log(`selected ${value}`);
+    };
         return (
             <header className='w-full h-[200px] md:h-[500px] lg:h-[700px] border border-red-700 relative'>
                 <div className='z-20 h-full relative top-0 w-full'>
@@ -61,21 +86,54 @@ function Hero() {
                             }
 
                         </div>
-                        <div className='w-full border border-gray-200 bg-white/80 rounded my-5 text-gray-700 flex justify-between items-center gap-x-4 p-2'>
+                        <div className='w-full border border-gray-200 bg-white/80 rounded my-5 text-gray-700 flex justify-between items-center gap-x-4 p-4'>
                             <div className=''>
-                                <input type="text" placeholder='Enter Keyword'  className='outline-none border rounded-xl p-3 focus:border-teal-500' />
+                                {/*<input type="text" placeholder='Enter Keyword'  className='outline-none border rounded-xl p-3 focus:border-teal-600 border-teal-500' />*/}
+                                <ConfigProvider theme={inputTheme}>
+                                    <Input placeholder='Enter Keywords' size='large' />
+                                </ConfigProvider>
                             </div>
-                            <div>
-                                <div className='bg-white'>
-                                    <select className='p-3'>
-                                        <option value="">Hello</option>
-                                        <option value="">Hello</option>
-                                        <option value="">Hello</option>
-                                    </select>
+
+                                <div className=''>
+                                    <ConfigProvider theme={theme}>
+                                        <Select
+                                            dropdownStyle={{ padding: '15px', border:"none" }}
+                                            defaultValue="house"
+                                            style={{ width: '200px' }}
+                                            onChange={handleChange}
+                                            options={[
+                                                { value: 'house', label: 'House' },
+                                                { value: 'villas', label: 'Villas' },
+                                                { value: 'office', label: 'Office' },
+                                            ]}
+                                            size='large'
+                                        />
+                                    </ConfigProvider>
                                 </div>
-                            </div>
-                            <div>
-                                Location
+
+                            <div className=''>
+                                <ConfigProvider theme={theme}>
+                                    <Select
+                                        showSearch
+                                        placeholder="Select Location"
+                                        dropdownStyle={{ padding: '15px', border:"none" }}
+                                        // defaultValue="Location"
+                                        style={{ width: '200px' }}
+                                        onChange={handleChange}
+                                        optionFilterProp="children"
+                                        filterOption={(input, option) => (option?.label ?? '').includes(input)}
+                                        filterSort={(optionA, optionB) =>
+                                            (optionA?.label ?? '').toLowerCase().localeCompare((optionB?.label ?? '').toLowerCase())
+                                        }
+                                        options={[
+                                            { value: 'lahore', label: 'Lahore' },
+                                            { value: 'islamabad', label: 'Islamabad' },
+                                            { value: 'multan', label: 'Multan' },
+                                            { value: 'rawalpindi', label: 'Rawalpindi' },
+                                        ]}
+                                        size='large'
+                                    />
+                                </ConfigProvider>
                             </div>
                             <div>
                                 Price
